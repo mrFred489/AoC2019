@@ -6,20 +6,26 @@ import re
 
 f = open("1.txt").read().split("\n")
 
-ftest = [100756]
+def computation(x):
+    return int(int(x)/3) - 2
 
-fuel = [int(int(x)/3) - 2 for x in f if x != ""]
+def computation_rec(x):
+    val = computation(x)
+    if val > 0:
+        return x + computation_rec(val)
+    return x
+
+
+ftest1 = [2]
+ftest2 = [1969]    # 966
+ftest3 = [100756]  # 50346
+
+fuel = [computation(x) for x in f if x != ""]
 print("part1", sum(fuel))
-fuels = [fuel]
-counter = 10
-while fuels[-1] > 0:
-    addfuel = int(fuels[-1]/int(3)) - 2
-    print(addfuel)
-    if addfuel > 0:
-        fuels.append(addfuel)
-    else:
-        break
-    # counter -= 1
+# print(fuel)
+fuel = map(computation_rec, fuel)
 
-print(fuels)
-print("part 2", sum(fuels))
+print("part 2", sum(fuel))
+
+
+
