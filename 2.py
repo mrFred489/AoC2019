@@ -11,7 +11,6 @@ teststack3 = [2,4,4,5,99,0]
 teststack4 = [1,1,1,4,99,5,6,0,99]
 
 
-stack = [int(x) for x in f]
 # stack = teststack4
 
 # 99: exit
@@ -22,6 +21,7 @@ operators = {
     1: (lambda x, y: x + y),
     2: (lambda x, y: x * y)
 }
+
 
 def operator(op, val1, val2):
     return op(val1, val2)
@@ -34,13 +34,28 @@ def compute(stack, pos):
     stack[w] = operator(operators[x], stack[y], stack[z])
     return stack
 
-stack[1] = 12
-stack[2] = 2
-pos = 0
 
-while pos < len(stack) and stack[pos] != 99:
-    stack = compute(stack, pos)
-    pos += 4
+def run_program(noun, verb):
+    stack = [int(x) for x in f]
+    stack[1] = noun
+    stack[2] = verb
+    pos = 0
 
-print(stack)
-print(stack[0])
+    while pos < len(stack) and stack[pos] != 99:
+        stack = compute(stack, pos)
+        pos += 4
+    return stack
+
+
+def part1():
+    print(run_program(12, 2)[0])
+
+
+def part2():
+    for noun in range(100):
+        for verb in range(100):
+            if run_program(noun, verb)[0] == 19690720:
+                print(100 * noun + verb)
+
+
+part2()
